@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Opening Vibezz</title>
-    <script>
-      // Get "room" parameter from URL
-      const params = new URLSearchParams(window.location.search);
-      const room = params.get("room");
+<head>
+  <title>Redirecting to Vibezz...</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const room = urlParams.get('room') || 'defaultRoom';
+    window.location.href = `exp+vibezz://join/${room}`;
+  </script>
+</head>
+<body>
+  <h3>Redirecting to Vibezz app...</h3>
+  <p>If nothing happens, <a id="link" href="#">tap here</a></p>
 
-      if (room) {
-        const deepLink = `exp+vibezz://join/${room}`;
-        // Redirect immediately
-        window.location.href = deepLink;
-        // Also set fallback link in case redirect doesn't work
-        window.onload = () => {
-          document.getElementById("fallback").href = deepLink;
-        };
-      } else {
-        // If room is missing, show an error message
-        document.addEventListener("DOMContentLoaded", () => {
-          document.body.innerHTML = "<p>Missing room code in URL.</p>";
-        });
-      }
-    </script>
-  </head>
-  <body>
-    <p>If the app doesn't open automatically, <a id="fallback" href="#">click here</a>.</p>
-  </body>
+  <script>
+    const room = new URLSearchParams(window.location.search).get('room') || 'defaultRoom';
+    const deepLink = `exp+vibezz://join/${room}`;
+    document.getElementById('link').href = deepLink;
+  </script>
+</body>
 </html>
